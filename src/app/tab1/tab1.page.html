@@ -11,7 +11,7 @@
   <ion-input [(ngModel)]="userInput" placeholder="Osobní číslo..."></ion-input>
   <ion-button (click)="btnRozvrhClicked()" expand="block" > Získej rozvrh </ion-button>
 
-  <ion-card>
+  <ion-card *ngIf="stahnirozvrhResult">
     <ion-card-header>
       <ion-card-title>Rozvrh studenta {{ userInput }}:</ion-card-title>
     </ion-card-header>
