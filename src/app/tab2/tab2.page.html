@@ -1,9 +1,52 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Dnešní rozvrh
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content class="ion-padding">
+  <!-- Input with placeholder -->
+<ion-input [(ngModel)]="userInput" placeholder="Osobní číslo..."></ion-input>
+<ion-button (click)="btnRozvrhClicked()" expand="block" > Získej rozvrh </ion-button>
+
+<ion-card *ngIf="stahnirozvrhResult">
+  <ion-card-header>
+    <ion-card-title>Dnešní rozvrh studenta {{ userInput }}:</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+  <!--{{ userInput }} <ion-icon name="arrow-forward"></ion-icon> {{ stahnirozvrhResult }}  -->
+  <!-- List of Text Items -->
+  <ng-container *ngIf="stahnirozvrhResult">
+      <ion-card-subtitle>{{dayOfWeek}}</ion-card-subtitle>
+    </ng-container>
+    
+        <ion-list>
+          
+            <ng-container *ngFor="let rozvrhovaAkce of stahnirozvrhResult; let i=index;">
+                <ng-container *ngIf="rozvrhovaAkce.den === dayOfWeek; else prace">
+                  <ion-item >
+                  {{rozvrhovaAkce.hodinaSkutOd.value}} - {{rozvrhovaAkce.hodinaSkutDo.value}} <br> 
+                  {{rozvrhovaAkce.typAkce}} z {{rozvrhovaAkce.nazev}} 
+                  </ion-item>
+                  
+                </ng-container>
+              
+              <ng-template #prace>
+                <ng-container *ngIf="(i+1)===stahnirozvrhResult.length">
+                  <p></p>
+                </ng-container>
+              </ng-template>
+
+            </ng-container>
+            
+    
+        </ion-list>
+
+  
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

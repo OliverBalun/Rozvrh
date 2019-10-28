@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { StahnirozvrhService } from '../api/stahnirozvrh.service';
 import { LoadingController } from '@ionic/angular';
 
+const days = ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'];
+const now = new Date;
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -15,6 +18,7 @@ export class Tab1Page {
   private loading:any= this.loadingController.create({
     message: 'Čekám na získání rozvrhu...',
   });
+  private dayOfWeek:any = 0
 
 
   constructor(
@@ -44,6 +48,8 @@ export class Tab1Page {
         console.log(response["rozvrhovaAkce"]["0"]["nazev"]);
         this.loading.dismiss();
       } );
+      this.dayOfWeek = days[ now.getDay() ];
+      console.log(this.dayOfWeek);
     }
   }
 
