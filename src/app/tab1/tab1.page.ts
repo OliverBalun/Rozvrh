@@ -12,7 +12,9 @@ export class Tab1Page {
   //zde muzem definovat vlastnosti a properties
   private userInput:string=''
   private stahnirozvrhResult:any
-  private loading:any
+  private loading:any= this.loadingController.create({
+    message: 'Čekám na získání rozvrhu...',
+  });
 
 
   constructor(
