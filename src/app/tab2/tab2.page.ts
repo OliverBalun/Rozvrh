@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StahnirozvrhService } from '../api/stahnirozvrh.service';
 import { LoadingController } from '@ionic/angular';
+import { ActivatedRoute } from "@angular/router";
 
 const days = ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'];
 const now = new Date;
@@ -19,12 +20,21 @@ export class Tab2Page {
     message: 'Čekám na získání rozvrhu...',
   });
   private dayOfWeek:any = 0
+  public cislo:any;
 
 
   constructor(
     private stahnirozvrhService: StahnirozvrhService,
-    public loadingController: LoadingController
-    ) {}
+    public loadingController: LoadingController,
+    public route: ActivatedRoute
+    ) {
+      this.cislo = this.route.snapshot.params.cislo;
+      console.log("nacitam data z url");
+      console.log(this.route.snapshot.params.cislo);
+      console.log(this.cislo);
+      this.userInput=this.cislo;
+      this.btnRozvrhClicked();
+    }
 
   //zde definuju funkce
 
@@ -35,7 +45,7 @@ export class Tab2Page {
   //Execute the following command: chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
 
   btnRozvrhClicked(){
-    console.log(this.userInput);
+    console.log("volam funkci btn clicked");
     if (this.userInput.length > 5){
       this.presentLoading(); //zavolam loader pro zobrazeni nacitani
       //debugger; zastavi mi v kodu behem chodu stranky

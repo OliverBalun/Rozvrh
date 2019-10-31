@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StahnirozvrhService } from '../api/stahnirozvrh.service';
 import { LoadingController } from '@ionic/angular';
+import { Router } from "@angular/router";
 
 const days = ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'];
 const now = new Date;
@@ -19,11 +20,13 @@ export class Tab1Page {
     message: 'Čekám na získání rozvrhu...',
   });
   private dayOfWeek:any = 0
+  public cislo:any;
 
 
   constructor(
     private stahnirozvrhService: StahnirozvrhService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private router: Router
     ) {}
 
   //zde definuju funkce
@@ -47,9 +50,16 @@ export class Tab1Page {
         //hide loading dialog
         console.log(response["rozvrhovaAkce"]["0"]["nazev"]);
         this.loading.dismiss();
+        //definuju router
+        console.log("predavam cislo");
+        this.cislo=this.userInput;
+        console.log(this.cislo);
+        console.log("cislo predano");
+        this.router.navigate([`tabs/tab2/${this.cislo}`]);
       } );
       this.dayOfWeek = days[ now.getDay() ];
       console.log(this.dayOfWeek);
+      
     }
   }
 
